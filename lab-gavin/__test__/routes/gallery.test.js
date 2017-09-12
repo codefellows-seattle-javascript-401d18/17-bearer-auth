@@ -19,13 +19,13 @@ describe('Testing Gallery Routes', function() {
         this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
 
         return mocks.user.createOne()
-        .then(userData => this.userData = userData)
-        .then(() => {
-          return superagent.post(':4444/api/gallery')
-          .set('Authorization', `Bearer ${this.userData.token}`)
-          .send(this.fakeGalleryData);
-        })
-        .then(res => this.res = res);
+          .then(userData => this.userData = userData)
+          .then(() => {
+            return superagent.post(':4444/api/gallery')
+              .set('Authorization', `Bearer ${this.userData.token}`)
+              .send(this.fakeGalleryData);
+          })
+          .then(res => this.res = res);
       });
 
       test('should return a status of 201', () => {
@@ -44,28 +44,28 @@ describe('Testing Gallery Routes', function() {
     describe('Invalid Requests', () => {
       test('should return a status of 401 given no Auth credentials',  () => {
         return superagent.post(':4444/api/gallery')
-        .send(this.fakeGalleryData)
-        .catch(err => {
-          expect(err.status).toBe(401);
-        });
+          .send(this.fakeGalleryData)
+          .catch(err => {
+            expect(err.status).toBe(401);
+          });
       });
 
       test('should return a 401 given bad Auth credintials', () => {
         return superagent.post(':4444/api/gallery')
-        .set('Authorization', 'Bearer badToken')
-        .send(this.fakeGalleryData)
-        .catch(err => {
-          expect(err.status).toBe(401);
-        });
+          .set('Authorization', 'Bearer badToken')
+          .send(this.fakeGalleryData)
+          .catch(err => {
+            expect(err.status).toBe(401);
+          });
       });
 
       xtest('should return 400 given bad req body', () => {
         return superagent.post(':4444/api/gallery')
-        .set('Authorization', `Bearer ${this.userData.token}`)
-        .send({})
-        .catch(err => {
-          expect(err.status).toBe(400);
-        });
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .send({})
+          .catch(err => {
+            expect(err.status).toBe(400);
+          });
       });
     });
   });
