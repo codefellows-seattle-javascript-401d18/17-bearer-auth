@@ -15,7 +15,10 @@ module.exports = function(router) {
 
     return new Todo(req.body).save()
       .then(todo => res.status(201).json(todo))
-      .catch(err => errorHandler(err, req, res));
+      .catch(err => {
+        // console.log(err);
+        errorHandler(err, req, res);
+      });
   });
 
   router.get('/api/todo/:_id', bearerAuth, (req, res) => {
@@ -26,7 +29,7 @@ module.exports = function(router) {
       .catch(err => errorHandler(err, req, res));
   });
 
-  router.get('/api/todo', bearerAuth, (req, res) => {
+  router.get('/api/todo/', bearerAuth, (req, res) => {
     debug('GET /api/todo/');
 
     return Todo.find()
@@ -38,7 +41,7 @@ module.exports = function(router) {
     debug('PUT /api/todo/:_id');
 
     return Todo.findByIdAndUpdate(req.params._id, req.body, { upsert:true, runValidators:true })
-      .then(() => res.status(204))
+      .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
 

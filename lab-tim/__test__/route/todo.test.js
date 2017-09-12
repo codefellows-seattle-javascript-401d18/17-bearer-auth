@@ -16,7 +16,7 @@ describe('Testing Todo Routes', function() {
   describe('POST to /api/todo', function() {
     describe('Valid Requests', () => {
       beforeAll(() => {
-        this.fakeTodoData = { name: faker.random.word(), desc: faker.random.words(12) };
+        this.fakeTodoData = { name: faker.random.word(), desc: faker.random.words(12), priority: faker.random.word() };
 
         return mocks.user.createOne()
           .then(userData => this.userData = userData)
@@ -34,6 +34,7 @@ describe('Testing Todo Routes', function() {
       test('should return a new todo in the res', () => {
         expect(this.res.body.name).toBe(this.fakeTodoData.name);
         expect(this.res.body.desc).toBe(this.fakeTodoData.desc);
+        expect(this.res.body.priority).toBe(this.fakeTodoData.priority);
       });
       test('should have a userId property', () => {
         expect(this.res.body).toHaveProperty('userId');
