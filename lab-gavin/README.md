@@ -24,7 +24,7 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
   + `npm run start:watch`
 
   + This creates a local server which should log to the console
-    + `server up:: 3000`
+    + `server up:: xxxx`
 
 + In the second terminal window type
   + `brew install httpie`
@@ -37,11 +37,7 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
 + In the Fourth terminal window type
   + `mongo` then
 
-+ Now from the the second terminal window you can make a series of GET, POST, PUT, and DELETE requests.
-
-  ## These are the only variations of this API and endpoints possible.
-  ## You must first create a user with valid username, password, and email.
-
+  + From the second terminal window you can signin/signup (GET /POST).
   ### User POST/signup requests
   + Example ==>`http POST localhost:3000/api/signup username=name password=password email=test@test.com`
   + Example w/ Mock info ==> `http POST localhost:3000/api/signup username=Gavinator password=35353 email=email@test.com`
@@ -49,6 +45,29 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
   ### User GET/signin requests
   + Example.==>`http GET localhost:3000/api/signin username:password`
   + Example w/ Mock ID ==> `http GET localhost:3000/api/signin/gavinator:35353`
+
+
+
+  + Also from the the second terminal window you can make a series of GET, POST, PUT, and DELETE requests for your Gallery.
+  ### Gallery POST
+  + Example ==>`http POST localhost:3000/api/gallery name=name desc=password`
+  + Example w/ Mock info ==> `http POST localhost:3000/api/gallery name=Gavinator desc=35353`
+
+  ### Gallery GET
+  + Example.==>`http GET localhost:3000/api/gallery/_id:`
+  + Example w/ Mock ID ==> `http GET localhost:3000/api/gallery/377448883737262`
+
+  ### Gallery GETALL
+  + Example.==>`http GET localhost:3000/api/gallery`
+  + Example w/ Mock ID ==> `http GET localhost:3000/api/gallery`
+
+  ### Gallery PUT
+  + Example.==>`http GET localhost:3000/api/gallery/_id: name:name desc=desc`
+  + Example w/ Mock ID ==> `http PUT localhost:3000/api/gallery/3384748484 name:Moana desc=pilot`
+
+  ### Gallery DELETE
+  + Example.==>`http GET localhost:3000/api/gallery/_id:`
+  + Example w/ Mock ID ==> `http GET localhost:3000/api/gallery/484747483`
 
 
 
@@ -67,10 +86,12 @@ for code blocks
   + `use toy-dev`
     + This will switch to the collection you want, allowing you to manipulate the data inside. In this example I used toy-dev which will also be the name of the collection for you, if installed correctly.
 
-  + `db.toys.find()`
+  + `db.galleries.find()`
+  + `db.users.find()`
     + This will return all the documents or items in the database under the collection you used.
 
-  + `db.toys.drop()`
+  + `db.galleries.find()`
+  + `db.users.find()``
     + This will delete all the documents or items in the database under the collections you used.
 
 ### Usage

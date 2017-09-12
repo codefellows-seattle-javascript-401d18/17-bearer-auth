@@ -137,7 +137,7 @@ describe('Testing Gallery Routes', function() {
           });
       });
 
-      describe('Invalid Requests', () => {
+      describe('Invalid Requests to GET', () => {
         beforeAll(() => {
           this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
 
@@ -161,7 +161,7 @@ describe('Testing Gallery Routes', function() {
           return superagent.get(`:4444/api/gallery/22222`)
             .set('Authorization', `Bearer ${this.userData.token}`)
             .then(res => {
-              expect(res.status).toBe(401);
+              expect(res.status).toBe(404);
             });
         });
       });
@@ -169,7 +169,7 @@ describe('Testing Gallery Routes', function() {
   });
 
   describe('PUT to /api/gallery', function() {
-    describe('Valid Requests', () => {
+    describe('Valid Requests to PUT', () => {
       beforeAll(() => {
         this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
 
@@ -193,7 +193,7 @@ describe('Testing Gallery Routes', function() {
 
     });
 
-    describe('Invalid Requests', () => {
+    describe('Invalid Requests to PUT', () => {
       beforeAll(() => {
         this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
 
@@ -211,7 +211,7 @@ describe('Testing Gallery Routes', function() {
           .set('Authorization', `Bearer ${this.userData.token + 1}`)
           .send({ name: 'hello', desc: 'this is a description' })
           .then(res => {
-            expect(res.status).toBe(204);
+            expect(res.status).toBe(401);
           });
       });
       test('should return 404 for PUT with invalid ID', () => {
@@ -219,7 +219,7 @@ describe('Testing Gallery Routes', function() {
           .set('Authorization', `Bearer ${this.userData.token}`)
           .send({ name: 'hello', desc: 'this is a description' })
           .then(res => {
-            expect(res.status).toBe(204);
+            expect(res.status).toBe(404);
           });
       });
       test('should return 400 for PUT with invalid body', () => {
@@ -227,7 +227,7 @@ describe('Testing Gallery Routes', function() {
           .set('Authorization', `Bearer ${this.userData.token}`)
           .send({ mynameis: 'hello', desc: 'this is a description' })
           .then(res => {
-            expect(res.status).toBe(204);
+            expect(res.status).toBe(400);
           });
       });
 
@@ -235,10 +235,10 @@ describe('Testing Gallery Routes', function() {
   });
 
   describe('DELETE to /api/gallery', function() {
-    describe('Valid Requests', () => {
+    describe('Valid Requests to DELETE', () => {
       beforeAll(() => {
         this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
-      
+
         return mocks.user.createOne()
           .then(userData => this.userData = userData)
           .then(() => {
@@ -258,7 +258,7 @@ describe('Testing Gallery Routes', function() {
 
     });
 
-    describe('Invalid Requests', () => {
+    describe('Invalid Requests to DELETE', () => {
       beforeAll(() => {
         this.fakeGalleryData = { name: faker.random.word(), desc: faker.random.words(12) };
 
