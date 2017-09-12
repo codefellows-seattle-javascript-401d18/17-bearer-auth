@@ -1,29 +1,30 @@
 'use strict';
 
-const debug = require('debug')('http:server');
+const debug = require('debug')('cfgram:server');
 
-// setting up express
+// express
 const express = require('express');
 const router = express.Router();
 const app = express();
 
-// mongoose setup
+// mongoose
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+let mongoConnection = mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
-let mongoConnection = mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
+// router-middleware
+require('../route/route-auth')(router);
+require('../route/route-gallery')(router);
 
-// router middleware
-require('../route/routh-auth')(router);
-
-// mount middleware
+// mount-middleware
 app.use(require('body-parser').json());
 app.use(require('cors')());
 app.use(router);
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
-const server = module.exports = {};
+// control over start and stop
+const server = module.exports = {}
 server.isOn = false;
 server.start = () => {
   return new Promise((resolve, reject) => {

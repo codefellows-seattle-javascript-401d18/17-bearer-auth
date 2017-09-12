@@ -6,15 +6,13 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
 const User = mongoose.Schema({
-  username: { type: String, require: true, unique: true },
-  password: { type: String, require: true },
-  email: { type: String, require:true },
-  findHash: { type: String, unique: true }
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true },
+  findHash: { type: String, unique: true },
 });
 
 User.methods.generatePasswordHash = function(password) {
-// creates a hashed password for storing on the server
-//NO PLAIN TEXT
 
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
@@ -26,7 +24,6 @@ User.methods.generatePasswordHash = function(password) {
 };
 
 User.methods.comparePasswordHash = function(password) {
-  // takes a users password and compares it with whats stored in the db
 
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, valid) => {
@@ -38,30 +35,28 @@ User.methods.comparePasswordHash = function(password) {
 };
 
 User.methods.generateFindHash = function() {
-  // unique hash to the user which helps cretae a token for further authorization requests
 
   return new Promise((resolve, reject) => {
     let tries = 0;
-    _generateFindHash.call(this);
 
-    function _generateFindHash() {
-      this.findhash = crypto.randomBytes(32).toString('hex');
-      this.save
-        .then(() => resolve(this.findhash))
+    let _generateFindHash = () => {
+      this.findHash = crypto.randomBytes(32).toString('hex');
+      this.save()
+        .then(() => resolve(this.findHash))
         .catch(err => {
-          if(tries < 3) {
-            tries++;
-            _generateFindHash.call(this);
-          }
-          if(err) return reject(err);
+          if(tries > 3) return reject(new Error('authorization failed; could not validate findHash'));
+          tries++;
+          console.log(err); //shutup err
+          _generateFindHash();
         });
-    }
+    };
+
+    _generateFindHash();
+
   });
 };
 
 User.methods.generateToken = function() {
-  // this is a token given to the user after signup/in so they can make
-  // requests behind authentication
 
   return new Promise((resolve, reject) => {
     this.generateFindHash()
