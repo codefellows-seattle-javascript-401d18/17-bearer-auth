@@ -12,11 +12,11 @@ module.exports = function(router) {
     let pw = req.body.password;
     delete req.body.password;
 
-    let user = new User(req.body);
+    let newUser = new User(req.body);
 
-    user.generatePasswordHash(pw)
-      .then(user => user.save())
-      .then(user => user.generateToken())
+    newUser.generatePasswordHash(pw)
+      .then(userA => userA.save())
+      .then(userB => userB.generateToken())
       .then(token => res.send(token))
       .catch(err => errorHandler(err, req, res));
   });
