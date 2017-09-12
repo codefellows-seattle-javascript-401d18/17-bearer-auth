@@ -1,12 +1,12 @@
 'use strict';
 
 const User = require('../../model/user');
-const Gallery = require('../../model/gallery');
+const Todo = require('../../model/todo');
 const faker = require('faker');
 
 const mocks = module.exports = {};
 mocks.user = {};
-mocks.gallery = {};
+mocks.todo = {};
 
 mocks.user.createOne = function() {
   let result = {};
@@ -18,35 +18,35 @@ mocks.user.createOne = function() {
   });
 
   return user.generatePasswordHash(result.password)
-  .then(user => {
-    result.user = user;
-    return user.save();
-  })
-  .then(user => user.generateToken())
-  .then(token => {
-    result.token = token;
-    return result;
-  });
+    .then(user => {
+      result.user = user;
+      return user.save();
+    })
+    .then(user => user.generateToken())
+    .then(token => {
+      result.token = token;
+      return result;
+    });
 };
 
-mocks.gallery.createOne = function() {
+mocks.todo.createOne = function() {
   let result;
 
   return mocks.user.createOne()
-  .then(userData => result = userData)
-  .then(userData => {
-    return new Gallery({
-      name: faker.random.word(),
-      desc: faker.random.words(12),
-      userId: userData.user._id
-    }).save();
-  })
-  .then(gallery => result.gallery = gallery);
+    .then(userData => result = userData)
+    .then(userData => {
+      return new Todo({
+        name: faker.random.word(),
+        desc: faker.random.words(12),
+        userId: userData.user._id
+      }).save();
+    })
+    .then(todo => result.todo = todo);
 };
 
-mocks.gallery.removeAll = function() {
+mocks.todo.removeAll = function() {
   return Promise.all([
-    Gallery.remove()
+    Todo.remove()
   ]);
 };
 

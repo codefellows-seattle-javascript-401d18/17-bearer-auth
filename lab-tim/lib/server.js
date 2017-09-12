@@ -14,7 +14,7 @@ let mongoConnection = mongoose.connect(process.env.MONGODB_URI, { useMongoClient
 
 // router middleware
 require('../route/route-auth')(router);
-require('../route/route-gallery')(router);
+require('../route/route-todo')(router);
 
 // mount middleware
 app.use(require('body-parser').json());
