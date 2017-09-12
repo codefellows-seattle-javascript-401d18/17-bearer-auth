@@ -1,10 +1,12 @@
 'use strict';
 
 const User = require('../../model/user');
+const Gallery = require('../../model/gallery');
 const faker = require('faker');
 
 const mocks = module.exports = {};
 mocks.user = {};
+mocks.gallery = {};
 
 mocks.user.createOne = function() {
   let result = {};
@@ -25,6 +27,27 @@ mocks.user.createOne = function() {
       result.token = token;
       return result;
     });
+};
+
+mocks.gallery.createOne = function() {
+  let results;
+
+  return mocks.user.createOne()
+    .then(userData => results = userData)
+    .then(userData => {
+      return new Gallery({
+        name: faker.random.word(),
+        desc: faker.random.words(12),
+        userId: userData.user._id
+      }).save();
+    })
+    .then(gallery => results.gallery = gallery);
+};
+
+mocks.gallery.removeAll = function() {
+  return Promise.all([
+    Gallery.remove()
+  ]);
 };
 
 mocks.user.removeAll = function() {
