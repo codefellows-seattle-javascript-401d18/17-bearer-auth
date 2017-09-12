@@ -13,8 +13,8 @@ mongoose.Promise = require('bluebird');
 let mongoConnection = mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
 // router middleware
-require('../route/route-auth')(router);
-require('../route/route-gallery')(router);
+require('../routes/route-auth')(router);
+require('../routes/route-gallery')(router);
 
 // mount middleware
 app.use(require('body-parser').json());
