@@ -144,7 +144,7 @@ And saw this!!! Successful PUT!!!:
 ## General notes/changes made from previous projects:
 - Created an index.js and set it as the start point in package.json.
 - Created a .env file with the following:
-  - Note: The angle brackets should not be included in your code.
+  - Note: The angle brackets are just placeholders and sshould not be included in your code.
 
 ```
 MONGODB_URI='mongodb://localhost/<name of your database>'
