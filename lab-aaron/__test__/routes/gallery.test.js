@@ -70,7 +70,7 @@ describe('Testing Gallery Routes', function() {
     });
   });
 
-  describe('GET to /api/gallery', function() {
+  xdescribe('GET to /api/gallery', function() {
     describe('Valid Requests', () => {
 
     });
@@ -80,7 +80,7 @@ describe('Testing Gallery Routes', function() {
     });
   });
 
-  describe('PUT to /api/gallery', function() {
+  xdescribe('PUT to /api/gallery', function() {
     describe('Valid Requests', () => {
 
     });
@@ -90,7 +90,7 @@ describe('Testing Gallery Routes', function() {
     });
   });
 
-  describe('DELETE to /api/gallery', function() {
+  xdescribe('DELETE to /api/gallery', function() {
     describe('Valid Requests', () => {
 
     });
