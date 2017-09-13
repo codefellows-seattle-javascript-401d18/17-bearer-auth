@@ -1,14 +1,14 @@
 ![cf](http://i.imgur.com/7v5ASc8.png) 17: CODE-FELLOWSGRAM
 =====================================
 
-# Creating a Password Protected Server
-Using node.js, HTTP, superagent, MondoDB and mongoose, this app creates a server that is able to respond to GET, POST, PUT and DELETE requests that are created in the terminal. These requests and responses will create a new user in the database and encrypt the password and username created by the user. The app is also able to update and destroy the username and password using terminal commands using httpie.
+## Creating a Password Protected Server
+This app creates a server that is able to respond to GET, POST, PUT and DELETE requests that are created in the terminal. These requests and responses will create a new user in the database and encrypt the password and username created by the user. The app is also able to update and destroy the username and password using terminal commands using httpie.
 
 With the most recent update we are introducing the Gallery.
-The Gallery will be defined soon.
+With the Gallery you are able to add, update and remove images.
 
 
-## Installation
+### Installation
 Clone the repository to whatever location you would like it stored in.
 
 In terminal use this command while in the project file:
@@ -24,13 +24,9 @@ this starts the server in the background
 to enter the mongo shell:
 `mongo`
 
-In another window you can begin to sign u and login!
-
-
+In another window you can begin to signup and login!!
 
 ### Using the App
-Once you have the dependencies installed go back to your terminal and use the following command;
-
 This will sign you up for the app.
  `http POST localhost:5000/api/signup username=username password=password email=user-email`
 

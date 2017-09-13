@@ -36,13 +36,17 @@ mocks.gallery.createOne = function() {
     .then(userData => results = userData)
     .then(userData => {
       return new Gallery({
-        name: faker.random.word(),
+        name: faker.random.domainWord(),
         desc: faker.random.words(12),
         userId: userData.user._id
       }).save();
     })
-    .then(gallery => results.gallery = gallery);
+    .then(gallery => {
+      results.gallery = gallery;
+      return results;
+    });
 };
+
 
 mocks.gallery.removeAll = function() {
   return Promise.all([
