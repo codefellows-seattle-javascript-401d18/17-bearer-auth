@@ -1,6 +1,5 @@
-![cf](http://i.imgur.com/7v5ASc8.png) 17: Bearer Auth
+![cf](http://i.imgur.com/7v5ASc8.png) 17: CODE-FELLOWSGRAM
 =====================================
-#CODE-FELLOWSGRAM
 
 # Creating a Password Protected Server
 Using node.js, HTTP, superagent, MondoDB and mongoose, this app creates a server that is able to respond to GET, POST, PUT and DELETE requests that are created in the terminal. These requests and responses will create a new user in the database and encrypt the password and username created by the user. The app is also able to update and destroy the username and password using terminal commands using httpie.
