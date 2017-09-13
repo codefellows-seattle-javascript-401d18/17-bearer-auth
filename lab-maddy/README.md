@@ -1,9 +1,9 @@
 # Documentation
 
 ## What this project does:
-The final goal for this project is to create a mock version of instagram. We're calling it CF gram. CF gram is an app that can let users sign up and sign in; create galleries, and then add images that belong to those galleries.
+The final goal for this project is to create a mock version of instagram. We're calling it CF gram. CF gram is an app that can let users sign up, sign in, create galleries, and then add images that belong to those galleries. We will be using Amazon Web Services (AWS) as our database to store these images.
 
-Today's lab assumes the user has a token and we can now make galleries for these users. And publish them using an AWS service called S3.
+Today's lab assumes the user has a token and we can now make galleries for these users. And publish them using an AWS service called S3; we will incorporate AWS in tomorrow's lab.
 
 We are now using Bearer to allow the user to make updates/changes to their login information.
 
@@ -13,15 +13,21 @@ We are now using Bearer to allow the user to make updates/changes to their login
 * We will be able to test against authenticated routes.
 
 ## Steps for me to complete:
-* create a bearer auth middleware module (feel free to use the one from lecture as a reference point) - DONE - bearer-auth-middleware.js
-* create a new resource that has at least three properties- DONE- gallery.js
-  * this resource must have a property of `userId` that references the `_id` of the user that created the resource - DONE - within gallery.js
+* create a bearer auth middleware module (feel free to use the one from lecture as a reference point)
+--> DONE - bearer-auth-middleware.js
+* create a new resource that has at least three properties
+--> DONE- gallery.js
+  * this resource must have a property of `userId` that references the `_id` of the user that created the resource
+  --> DONE - within gallery.js
   ```
   userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'user' }
   ```
   * the `userId` property can only be set from an `_id` found using your bearer auth middleware module
+  -->
 * as always, use the **npm** `debug` module to log function calls that are used within your application
+-->
 * using the express `Router`, create routes for doing **RESTFUL CRUD** operations against your resource
+--> DONE - within route-gallery.js
 
 
 ## How another dev could 'get started' with my api on their own:
@@ -60,8 +66,12 @@ npm run start:watch
 
 ### To see what's in your database:
 ````
-show database
+show dbs
 ````
+### Open a database:
+```
+use <db_name>
+```
 ### Show collections:
 ```
 show collections
@@ -78,45 +88,20 @@ drop cf-gram-dev
 ## To test POST, GET, PUT and DELETE an object on the server, use these requests in terminal (we're able to do this with the http client superagent):
 
 
-## Example POST(sign up) request:
+## Example POST(sign up) request in Postman:
 ```
-http POST :3000/api/signup username=maddy password=1234 email=test@example.com
-```
-
-## Example GET(sign in) request:
-```
-http GET localhost:3000/api/signin/maddy1234
+localhost:4000/api/signup
 ```
 
+## Example GET(sign in) request in Postman:
 ```
-http -a user:pass :3000/api/signin
+localhost:4000/api/signin
 ```
-
 
 ## Example PUT request:
-```
-```
-Example:
-```
-```
-Kept seeing this, which is not what I thought we were supposed to see:
-```
 
-```
-Then I decided to do a GET request:
-```
-```
-
-And saw this!!! Successful PUT!!!:
-```
-
-```
 
 ## Example DELETE request:
-```
-```
-
-
 
 
 # Packages and commands to remember:
@@ -190,5 +175,9 @@ PORT=<a port number>
 ## Any resources that helped me complete this assignment:
 - Postman
 
+## Notes to myself:
+* 9/12- POST and GET requests seem to be working in Postman. I am getting tokens. Still need to test PUT and DELETE. Also I only have what Scott wrote in demo code for tests. Still need to write tests for the second GET, PUT and DELETE.
+* cf-gram-dev is showing up as a database in the mongo shell!
+
 # Collaborators:
-Isiah! Said!
+Isiah! Said! Isaac!
