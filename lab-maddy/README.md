@@ -182,9 +182,13 @@ PORT=<a port number>
  "testtwo": "jest -i",
  ```
  - Signed up for AWS.
+ - FYI, if anyone wants to keep using httpie, here's a sample request to show how you would format to use a token for auth:
+ ```
+`http GET :5000/api/gallery/1234-5678   'Authorization:Bearer myWonderfulToken'`
+```
 
 ## Any resources that helped me complete this assignment:
--
+- Postman
 
 # Collaborators:
 Isiah! Said!

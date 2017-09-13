@@ -18,40 +18,43 @@ mocks.user.createOne = function() {
   });
 
   return user.generatePasswordHash(result.password)
-  .then(user => {
-    result.user = user;
-    return user.save()
-  })
-  .then(user => user.generateToken())
-  .then(token => {
-    result.token = token;
-    return result;
-  });
+    .then(user => {
+      result.user = user;
+      return user.save()
+    })
+    .then(user => user.generateToken())
+    .then(token => {
+      result.token = token;
+      return result;
+    });
 };
 
 mocks.gallery.createOne = function() {
-  let results;
+  let result = {};
 
   return mocks.user.createOne()
-  .then(userData => result = userData)
-  .then(userData => {
-    return new Gallery({
-      name: faker.random.word(),
-      desc: faker.random.words(12),
-      userId: userData.user._id
-    }).save();
-  });
-  .then(gallery => result.gallery = gallery);
-}
+    .then(userData => result = userData)
+    .then(userData => {
+      return new Gallery({
+        name: faker.internet.domainword(),
+        desc: faker.internet.words(12),
+        userId: userData.user._id
+      }).save();
+    })
+    .then(gallery => {
+      result.gallery = gallery;
+      return result;
+    });
+};
 
 mocks.gallery.removeAll = function() {
   return Promise.all([
     Gallery.remove()
-  ])
-}
+  ]);
+};
 
 mocks.user.removeAll = function() {
   return Promise.all([
     User.remove()
-  ])
-}
+  ]);
+};
