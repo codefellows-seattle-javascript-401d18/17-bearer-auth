@@ -8,15 +8,15 @@ With the most recent update we are introducing the Gallery.
 ## Installation
 Clone the repository to whatever location you would like it stored in.
 In terminal use this command while in the project file:
-`npm i`
+1. `npm i`
 This will install all the required dependencies for the app.
 
 ### Using the App
 Once you have the dependencies installed go back to your terminal and use the following command;
-`http POST :5000/api/signup username=username password=password email=user-email`
+1. `http POST :5000/api/signup username=username password=password email=user-email`
 
 You should also be able to get your login information using this command;
-`http -a user:pass :5000/api/signin`
+1. `http -a user:pass :5000/api/signin`
 
 
 
