@@ -42,7 +42,7 @@ describe('Testing Gallery Routes', function() {
     })
 
     describe('Invalid Requests', () => {
-      test('should return a status of 401 given no Auth credentials',  () => {
+      test('should return a status of 401 given no Auth credentials', () => {
         return superagent.post(':4444/api/gallery')
           .send(this.fakeGalleryData)
           .catch(err => {
@@ -50,7 +50,7 @@ describe('Testing Gallery Routes', function() {
           })
       })
 
-      test('should return a 401 given bad Auth credintials', () => {
+      test('should return a 401 given bad Auth credentials', () => {
         return superagent.post(':4444/api/gallery')
           .set('Authorization', 'Bearer badToken')
           .send(this.fakeGalleryData)
@@ -61,18 +61,31 @@ describe('Testing Gallery Routes', function() {
 
       xtest('should return 400 given bad req body', () => {
         return superagent.post(':4444/api/gallery')
-        .set('Authorization', `Bearer ${this.userData.token}`)
-        .send({})
-        .catch(err => {
-          expect(err.status).toBe(400)
-        })
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .send({})
+          .catch(err => {
+            expect(err.status).toBe(400)
+          })
       })
     })
   })
 
-  describe('GET to /api/gallery', function() {
+  describe.only('GET to /api/gallery', function() {
     describe('Valid Requests', () => {
-
+      beforeAll(() => {
+        return mocks.gallery.createOne()
+          .then(galleryData => {
+            console.log('gallery data', galleryData)
+            this.tempGallery = galleryData
+            console.log('temp gallery', this.tempGallery)
+            return superagent.get(`:4444/api/${this.tempGallery._id}`)
+              .set('Authorization', `Bearer ${this.tempGallery.token}`)
+              .then(res => this.res = res)
+          })
+      })
+      test('should return a status of 200', () => {
+        expect(this.res.status).toBe(200)
+      })
     })
 
     describe('Invalid Requests', () => {

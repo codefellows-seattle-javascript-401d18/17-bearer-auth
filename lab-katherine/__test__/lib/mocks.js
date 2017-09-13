@@ -30,11 +30,12 @@ mocks.user.createOne = function() {
 }
 
 mocks.gallery.createOne = function() {
-  let results
+  let result
 
   return mocks.user.createOne()
     .then(userData => result = userData)
     .then(userData => {
+      console.log('user', userData)
       return new Gallery({
         name: faker.random.word(),
         desc: faker.random.words(12),
