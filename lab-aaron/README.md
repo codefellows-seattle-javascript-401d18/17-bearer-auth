@@ -1,22 +1,59 @@
+![cf](http://i.imgur.com/7v5ASc8.png) 17: Bearer Auth
+=====================================
+#CODE-FELLOWSGRAM
 
 # Creating a Password Protected Server
 Using node.js, HTTP, superagent, MondoDB and mongoose, this app creates a server that is able to respond to GET, POST, PUT and DELETE requests that are created in the terminal. These requests and responses will create a new user in the database and encrypt the password and username created by the user. The app is also able to update and destroy the username and password using terminal commands using httpie.
 
 With the most recent update we are introducing the Gallery.
+The Gallery will be defined soon.
 
 
 ## Installation
 Clone the repository to whatever location you would like it stored in.
+
 In terminal use this command while in the project file:
-1. `npm i`
+ `npm i`
 This will install all the required dependencies for the app.
+
+You should have multiple terminal windows open. Either in a terminal window or in the background, should have your Mongo Database running. In another window you should install, if you haven't already, HTTPie. In yet another window, you should open your mongodb shell.
+
+start MongoDB:
+`brew services start mongo`
+this starts the server in the background
+
+to enter the mongo shell:
+`mongo`
+
+In another window you can begin to sign u and login!
+
+
 
 ### Using the App
 Once you have the dependencies installed go back to your terminal and use the following command;
-1. `http POST :5000/api/signup username=username password=password email=user-email`
 
-You should also be able to get your login information using this command;
-1. `http -a user:pass :5000/api/signin`
+This will sign you up for the app.
+ `http POST localhost:5000/api/signup username=username password=password email=user-email`
+
+ You should also be able to get signed in to the app;
+ `http GET localhost:5000/api/signin username:password`;
+
+ To POST to your Gallery use this command;
+  ``
+
+ To GET a item from your Gallery;
+ ``
+
+ To GETALL items from your Gallery;
+ ``
+
+ To PUT /update items in your Gallery;
+ ``
+
+ To DELETE items from your Gallery;
+ ``
+
+
 
 
 
