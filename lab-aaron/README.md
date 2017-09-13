@@ -17,11 +17,11 @@ This will install all the required dependencies for the app.
 
 You should have multiple terminal windows open. Either in a terminal window or in the background, should have your Mongo Database running. In another window you should install, if you haven't already, HTTPie. In yet another window, you should open your mongodb shell.
 
-start MongoDB:
+Start MongoDB:
 `brew services start mongo`
 this starts the server in the background
 
-to enter the mongo shell:
+To enter the mongo shell:
 `mongo`
 
 In another window you can begin to signup and login!!
