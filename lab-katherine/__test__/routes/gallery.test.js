@@ -42,7 +42,7 @@ describe('Testing Gallery Routes', function() {
     })
 
     describe('Invalid Requests', () => {
-      test('should return a status of 401 given no Auth credentials',  () => {
+      test('should return a status of 401 given no Auth credentials', () => {
         return superagent.post(':4444/api/gallery')
           .send(this.fakeGalleryData)
           .catch(err => {
@@ -50,7 +50,7 @@ describe('Testing Gallery Routes', function() {
           })
       })
 
-      test('should return a 401 given bad Auth credintials', () => {
+      test('should return a 401 given bad Auth credentials', () => {
         return superagent.post(':4444/api/gallery')
           .set('Authorization', 'Bearer badToken')
           .send(this.fakeGalleryData)
@@ -61,22 +61,67 @@ describe('Testing Gallery Routes', function() {
 
       xtest('should return 400 given bad req body', () => {
         return superagent.post(':4444/api/gallery')
-        .set('Authorization', `Bearer ${this.userData.token}`)
-        .send({})
-        .catch(err => {
-          expect(err.status).toBe(400)
-        })
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .send({})
+          .catch(err => {
+            expect(err.status).toBe(400)
+          })
       })
     })
   })
 
   describe('GET to /api/gallery', function() {
-    describe('Valid Requests', () => {
+    describe('Valid Requests to GET', () => {
+      beforeAll(() => {
+        this.fakeGalleryData = {name: faker.random.word(), desc: faker.random.words(12)}
 
-    })
+        return mocks.user.createOne()
+          .then(userData => this.userData = userData)
+          .then(() => {
+            return superagent.post(':4444/api/gallery')
+              .set('Authorization', `Bearer ${this.userData.token}`)
+              .send(this.fakeGalleryData)
+          })
+          .then(res => this.res = res)
+      })
 
-    describe('Invalid Requests', () => {
+      test('200, for a request made with a valid id', () => {
+        return superagent.get(`:4444/api/gallery/${this.res.body._id}`)
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .then(res => {
+            expect(res.status).toBe(200)
+          })
+      })
 
+      describe('Invalid Requests to GET', () => {
+        beforeAll(() => {
+          this.fakeGalleryData = {name: faker.random.word(), desc: faker.random.words(12)}
+
+          return mocks.user.createOne()
+            .then(userData => this.userData = userData)
+            .then(() => {
+              return superagent.post(':4444/api/gallery')
+                .set('Authorization', `Bearer ${this.userData.token}`)
+                .send(this.fakeGalleryData)
+            })
+            .then(res => this.res = res)
+        })
+
+        xtest('401, if no token was provided', () => {
+          return superagent.get(`:4444/api/gallery/${this.res.body._id}`)
+            .then(res => {
+              expect(res.status).toBe(401)
+            })
+        })
+
+        xtest('404, for a valid request with an id that was not found', () => {
+          return superagent.get(`:4444/api/gallery/30495839485`)
+            .set('Authorization', `Bearer ${this.userData.token}`)
+            .then(res => {
+              expect(res.status).toBe(404)
+            })
+        })
+      })
     })
   })
 

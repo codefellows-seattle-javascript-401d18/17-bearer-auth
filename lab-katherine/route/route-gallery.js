@@ -26,15 +26,26 @@ module.exports = function(router) {
       .catch(err => errorHandler(err, req, res))
   })
 
-  router.get('/api/gallery', (req, res) => {
+  router.get('/api/gallery', bearerAuth, (req, res) => {
+    debug('GET ALL /api/gallery')
 
+    return Gallery.find()
+      .then(galleries => res.json(galleries.map(gallery => gallery._id)))
   })
 
-  router.put('/api/gallery', (req, res) => {
+  router.put('/api/gallery/:_id', bearerAuth,(req, res) => {
+    debug('PUT /api/gallery/:_id')
 
+    return Gallery.findByIdAndUpdate(req.params._id, req.body)
+      .then(() => res.sendStatus(204))
+      .catch(err => errorHandler(err, req, res))
   })
 
-  router.delete('/api/gallery', (req, res) => {
+  router.delete('/api/gallery/:_id', bearerAuth, (req, res) => {
+    debug('DELETE /api/gallery/:_id')
 
+    return Gallery.findByIdAndRemove(req.params._id)
+      .then(() => res.sendStatus(204))
+      .catch(err => errorHandler(err, req, res))
   })
 }

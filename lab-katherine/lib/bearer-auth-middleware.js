@@ -21,11 +21,11 @@ module.exports = function(req, res, next) {
     }
 
     User.findOne({ findHash: decoded.token })
-    .then(user => {
-      delete user.password
-      req.user = user
-      next()
-    })
-    .catch(err => errorHandler(err, req, res))
+      .then(user => {
+        delete user.password
+        req.user = user
+        next()
+      })
+      .catch(err => errorHandler(err, req, res))
   })
 }
