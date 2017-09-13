@@ -9,6 +9,7 @@ module.exports = function(router) {
   router.post('/api/signup', (req, res) => {
     debug('POST /api/signup');
 
+    //if(!req.body.password) errorHandler({'name': 'madeup', 'message': 'validation failed'}, req, res);
     // get rid of the PW on req.body before the req is handed back as a nested object in the res
     let pw = req.body.password;
     delete req.body.password;

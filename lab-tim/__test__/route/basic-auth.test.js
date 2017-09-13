@@ -2,9 +2,9 @@
 
 const faker = require('faker');
 const mocks = require('../lib/mocks');
-const User = require('../../model/user');
 const superagent = require('superagent');
 const server = require('../../lib/server');
+const User = require('../../model/user');
 require('jest');
 
 describe('Testing basic auth routes', function() {
@@ -39,7 +39,7 @@ describe('Testing basic auth routes', function() {
     });
 
     describe('Invalid Requests', () => {
-      xtest('should return a 400 Bad Request given bad req body', () => {
+      test.only('should return a 400 Bad Request given bad req body', () => {
         return superagent.post(':4444/api/signup')
           .send({ username: 'wat' })
           .catch(err => {

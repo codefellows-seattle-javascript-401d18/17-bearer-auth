@@ -30,18 +30,22 @@ mocks.user.createOne = function() {
 };
 
 mocks.todo.createOne = function() {
-  let result;
+  let result = {};
 
   return mocks.user.createOne()
-    .then(userData => result = userData)
+    .then(userData => result.user = userData)
     .then(userData => {
       return new Todo({
         name: faker.random.word(),
         desc: faker.random.words(12),
+        priority: faker.random.word(),
         userId: userData.user._id
       }).save();
     })
-    .then(todo => result.todo = todo);
+    .then(todo => {
+      result.todo = todo;
+      return result;
+    });
 };
 
 mocks.todo.removeAll = function() {
