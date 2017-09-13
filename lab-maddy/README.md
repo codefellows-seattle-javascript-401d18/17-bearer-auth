@@ -3,43 +3,58 @@
 ## What this project does:
 The final goal for this project is to create a mock version of instagram. We're calling it CF gram. CF gram is an app that can let users sign up and sign in; create galleries, and then add images that belong to those galleries.
 
+Today's lab assumes the user has a token and we can now make galleries for these users. And publish them using an AWS service called S3.
+
 We are now using Bearer to allow the user to make updates/changes to their login information.
 
-### Future goals/building on top of this project:
-
-
-## Learning Objectives  
+## Learning Objectives:
 * We will be able to create bearer authentication middleware.
 * We will be able to utilize their bearer authentication middleware in their route structures.
 * We will be able to test against authenticated routes.
 
+## Steps for me to complete:
+* create a bearer auth middleware module (feel free to use the one from lecture as a reference point) - DONE - bearer-auth-middleware.js
+* create a new resource that has at least three properties- DONE- gallery.js
+  * this resource must have a property of `userId` that references the `_id` of the user that created the resource - DONE - within gallery.js
+  ```
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'user' }
+  ```
+  * the `userId` property can only be set from an `_id` found using your bearer auth middleware module
+* as always, use the **npm** `debug` module to log function calls that are used within your application
+* using the express `Router`, create routes for doing **RESTFUL CRUD** operations against your resource
 
 
 ## How another dev could 'get started' with my api on their own:
-  - How do you clone this project?
+  * How do you clone this project?
       1. First click on the Fork button in the upper right hand corner to make a copy of my repository.
       2. That will automatically take you to your github. Then click on the green 'clone or download' button to copy the URL to your machines clipboard.
       3. In terminal navigate to wherever you want this clone to live, type 'git clone <this is where you paste the URL you just copied>', you should see a 'master' branch appear.
       4. Then type 'git checkout -b <branch name of your choosing> to create a fresh branch to work from.
-  - How do you start using this project?
+  * How do you start using this project?
       1. You will need to have NodeJS installed on your machine.
       2. You will need to install httpie in one terminal window to test HTTP requests.
       3. Then start type nodemon or node server.js in a separate terminal window to get your server running.
-
+      4. You will need to npm i to install node modules.
+      5. But you do not want to commit theses large module files, so you must create an `.eslintignore` file that includes nodemodules.
+      It looks like this within the file:
+      ```
+      **/node_modules/*
+      ```
 
 # Mongo database steps:
 1. Create db folder within data folder.
-2. Upper left side terminal window (within lab-maddy folder)
-```
-npm run start:watch
-```
-3. Upper right window (within lab-maddy folder)
+
+2. Upper right window (within lab-maddy folder)
 ```
 mongod --dbpath ./data/db
 ```
-4. Lower right window (within lab-maddy folder)
+3. Lower right window (within lab-maddy folder)
 ```
 mongo
+```
+4. Upper left side terminal window (within lab-maddy folder)
+```
+npm run start:watch
 ```
 5. Lower left window - POST, GET, PUT, DELETE requests
 
@@ -57,7 +72,7 @@ use cf-gram-dev
 ```
 ### To delete the data in the collection:
 ```
-drop cd-gram-dev
+drop cf-gram-dev
 ```
 
 ## To test POST, GET, PUT and DELETE an object on the server, use these requests in terminal (we're able to do this with the http client superagent):
@@ -140,11 +155,12 @@ And saw this!!! Successful PUT!!!:
 
 ### Not needed for every project:
   - npm install bluebird (sets this as a dependency in package.json) -
+  - npm install faker (this gives provides us with fake data for testing things like user info- names, addresses, phone numbers, etc) - DONE
 
 ## General notes/changes made from previous projects:
 - Created an index.js and set it as the start point in package.json.
 - Created a .env file with the following:
-  - Note: The angle brackets are just placeholders and sshould not be included in your code.
+  - Note: The angle brackets are just placeholders and should not be included in your code.
 
 ```
 MONGODB_URI='mongodb://localhost/<name of your database>'
@@ -159,8 +175,16 @@ PORT=<a port number>
 - Don't push an AWS key to github!!!
 - I copied my work from lab 16 into this lab.
 - Tests from lab 14 will help with the test for this lab.- gavin
+- Create an AWS account
+- Created a `.env` & `.test.env` files
+- Isaiah recommended adding this as an additional test command in package.json-    
+```
+ "testtwo": "jest -i",
+ ```
+ - Signed up for AWS.
 
 ## Any resources that helped me complete this assignment:
 -
 
 # Collaborators:
+Isiah! Said!
