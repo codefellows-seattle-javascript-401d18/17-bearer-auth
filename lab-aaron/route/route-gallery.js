@@ -36,6 +36,10 @@ module.exports = function(router) {
   // need to finish
   router.put('/api/gallery', bearerAuth, (req, res) => {
     debug('PUT /api/gallery');
+
+    Gallery.findByIdAndUpdate(req.params._id, req.body, { upsert:true, runValidators:true})
+      .then(() => res.sendStatus(204))
+      .catch(err => errorHandler(err, req, res));
   });
 
   router.delete('/api/gallery/:_id', bearerAuth, (req, res) => {
